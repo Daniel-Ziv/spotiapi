@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Spotifixer</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var loginLink = document.getElementById('login-link');
+            if (loginLink) {
+                // Construct the login URL by removing the '/front/index.html' part and appending '/login'
+                var baseUrl = window.location.href.replace('/front/index.html', '');
+                loginLink.href = `${baseUrl}/login`;
+            }
+        });
+        </script>
+        
+    <h1>My Playlists</h1>
+    <a id="login-link" href="#">can't see your playlists? click here.</a>
+    <ul id="playlist-list">
+        
+        <!-- Your playlists will be dynamically added here -->
+    </ul>
+
+    <script src="scripts/playlists_fetch.js"></script>
+
+    <form id="playlist-form">
+       
+        <label for="new-playlist-name">New Playlist Name:</label>
+        <br>
+        <input type="text" id="new-playlist-name" name="new-playlist-name">
+        <br>
+        <input type="submit" value="Submit">
+        
+    </form>
+
+    <script src="scripts/playlists_action.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Animate login link on hover
+        const loginLink = document.getElementById('login-link');
+        loginLink.style.transition = "color 0.3s ease";
+        loginLink.onmouseover = () => loginLink.style.color = "#18ac4d";
+        loginLink.onmouseout = () => loginLink.style.color = "#1DB954";
+    
+        // Smoothly fade in playlists
+        const playlists = document.querySelectorAll('#playlist-list li');
+        let delay = 0;
+        playlists.forEach(playlist => {
+            playlist.style.opacity = 0;
+            playlist.style.transition = `opacity 0.5s ease ${delay}s`;
+            delay += 0.1;
+            window.setTimeout(() => {
+                playlist.style.opacity = 1;
+            }, 100);
+        });
+    
+        
+        // Style form dynamically for focus
+        const input = document.querySelector('input[type="text"]');
+        input.onfocus = () => input.style.boxShadow = "0 0 5px #1DB954";
+        input.onblur = () => input.style.boxShadow = "none";
+    
+        // Submit button hover effect
+        const submitBtn = document.querySelector('input[type="submit"]');
+        submitBtn.style.transition = "background-color 0.3s ease";
+        submitBtn.onmouseover = () => submitBtn.style.backgroundColor = "#18ac4d";
+        submitBtn.onmouseout = () => submitBtn.style.backgroundColor = "#1DB954";
+    });
+    </script>
+    </div>
+</body>
+</html>
