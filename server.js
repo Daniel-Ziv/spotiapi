@@ -41,10 +41,7 @@ app.get('/callback', async (req, res) => {
     spotifyApi.setAccessToken(data.body['access_token']);
     spotifyApi.setRefreshToken(data.body['refresh_token']);
 
-    // At this point, the refresh token should be stored securely associated with the user's session or profile
-    // Example (pseudo-code): storeRefreshTokenForUser(sessionUserId, data.body['refresh_token']);
-    // The specific implementation depends on your application's architecture and security requirements
-
+  
     // Redirect to a front-end page or dashboard after successful authorization
     res.redirect('/front/index.html');  // Adjust as necessary
   } catch (error) {
