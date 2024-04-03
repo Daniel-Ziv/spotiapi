@@ -11,7 +11,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             var loginLink = document.getElementById('login-link');
             if (loginLink) {
-                // Construct the login URL by removing the '/front/index.html' part and appending '/login'
+
                 var baseUrl = window.location.href.replace('/front/index.html', '');
                 loginLink.href = `${baseUrl}/login`;
             }
@@ -22,7 +22,7 @@
     <a id="login-link" href="#">can't see your playlists? click here.</a>
     <ul id="playlist-list">
         
-        <!-- Your playlists will be dynamically added here -->
+        <!-- playlists -->
     </ul>
 
     <script src="scripts/playlists_fetch.js"></script>
@@ -38,15 +38,15 @@
     </form>
 
     <script src="scripts/playlists_action.js"></script>
+        
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Animate login link on hover
+        
         const loginLink = document.getElementById('login-link');
         loginLink.style.transition = "color 0.3s ease";
         loginLink.onmouseover = () => loginLink.style.color = "#18ac4d";
         loginLink.onmouseout = () => loginLink.style.color = "#1DB954";
     
-        // Smoothly fade in playlists
         const playlists = document.querySelectorAll('#playlist-list li');
         let delay = 0;
         playlists.forEach(playlist => {
@@ -59,7 +59,7 @@
         });
     
         
-        // Style form dynamically for focus
+
         const input = document.querySelector('input[type="text"]');
         input.onfocus = () => input.style.boxShadow = "0 0 5px #1DB954";
         input.onblur = () => input.style.boxShadow = "none";
