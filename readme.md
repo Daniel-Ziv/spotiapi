@@ -1,4 +1,4 @@
-VIDEO USAGE SHOWCASE: https://youtu.be/ztGUlSQbVcI
+VIDEO USAGE SHOWCASE: https://youtu.be/Eyl0_6ylMSU
 # Spotify Playlist Manager
 
 This project is a web-based application that allows users to manage their Spotify playlists. Users can view their existing playlists, create new playlists, and add tracks from multiple playlists into a single new playlist. The application interacts with the Spotify Web API to fetch playlist data and perform playlist operations.
