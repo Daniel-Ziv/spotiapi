@@ -4,7 +4,7 @@ const SpotifyWebApi = require('spotify-web-api-node');
 const cors = require('cors');
 const app = express();
 app.use(cors());
-app.use(express.json()); // Ensure you can parse JSON request bodies
+app.use(express.json()); 
 
 const spotifyApi = new SpotifyWebApi({
   clientId: process.env.SPOTIFY_CLIENT_ID,
@@ -12,9 +12,7 @@ const spotifyApi = new SpotifyWebApi({
   redirectUri: 'http://localhost:3000/callback/',
 });
 
-// Removed hardcoded setAccessToken and setRefreshToken calls
 
-// Serve the static files from the React app
 app.use(express.static('public'));
 
 app.get('/login', (req, res) => {
@@ -42,8 +40,8 @@ app.get('/callback', async (req, res) => {
     spotifyApi.setRefreshToken(data.body['refresh_token']);
 
   
-    // Redirect to a front-end page or dashboard after successful authorization
-    res.redirect('/front/index.html');  // Adjust as necessary
+    // Redirect after successful authorization
+    res.redirect('/front/index.html');  
   } catch (error) {
     console.error('Error during authorization:', error);
     res.send(`Error during authorization: ${error}`);
@@ -59,26 +57,23 @@ app.post('/add-tracks-from-selected-playlists', async (req, res) => {
       let totalTracksAdded = 0;
       
       while (true) {
-        // Fetch a batch of tracks from the current playlist
         const tracksResponse = await spotifyApi.getPlaylistTracks(playlistId, { offset: offset, limit: 100 });
         const trackUris = tracksResponse.body.items.map(item => item.track.uri);
 
-        // Break if there are no tracks left to process
+        // if no tracks left to process
         if (trackUris.length === 0) {
           break;
         }
 
-        // Add tracks in batches of 100
+        // Add tracks
         for (let i = 0; i < trackUris.length; i += 100) {
           const batch = trackUris.slice(i, i + 100);
           await spotifyApi.addTracksToPlaylist(newPlaylistId, batch);
           totalTracksAdded += batch.length;
         }
 
-        // Update the offset for the next batch of tracks
         offset += trackUris.length;
 
-        // Check if all tracks have been processed
         if (trackUris.length < 100) {
           break;
         }
@@ -97,9 +92,9 @@ app.post('/add-tracks-from-selected-playlists', async (req, res) => {
 
 
 app.post('/create-playlist', async (req, res) => {
-  const { name } = req.body; // Ensure this is correctly extracted
+  const { name } = req.body;
   try {
-      const data = await spotifyApi.createPlaylist(name, { 'public': false }); // Use `name` here
+      const data = await spotifyApi.createPlaylist(name, { 'public': false }); 
       res.json(data.body);
 
   } catch (error) {
@@ -121,10 +116,10 @@ app.get('/playlists', async (req, res) => {
 });
 
 app.post('/add-tracks', async (req, res) => {
-  const { playlistId, trackUris } = req.body; // Ensure these are correctly received
+  const { playlistId, trackUris } = req.body; 
   try {
     const data = await spotifyApi.addTracksToPlaylist(playlistId, trackUris);
-    res.json(data.body); // You might want to send back a success response
+    res.json(data.body);
   } catch (error) {
     console.error('Error adding tracks:', error);
     res.status(500).json({ error: 'Error adding tracks' });
@@ -138,9 +133,7 @@ async function refreshSpotifyToken() {
     spotifyApi.setAccessToken(data.body['access_token']);
 
     if (data.body['refresh_token']) {
-        // Update the stored refresh token if Spotify returns a new one
         spotifyApi.setRefreshToken(data.body['refresh_token']);
-        // Securely store the new refresh token
     }
 
     console.log('Access token has been successfully refreshed.');
@@ -150,5 +143,4 @@ async function refreshSpotifyToken() {
 }
 
 
-// Start the server
 app.listen(3000, () => console.log('Server is running on port 3000'));
