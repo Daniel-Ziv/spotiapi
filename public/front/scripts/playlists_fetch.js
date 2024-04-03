@@ -22,19 +22,25 @@ return;
 }
 
 data.items.forEach((playlist, index) => {
-const checkbox = document.createElement('input');
-checkbox.type = 'checkbox';
-checkbox.id = `playlist-${index}`;
-checkbox.value = playlist.id;
-
-const label = document.createElement('label');
-label.htmlFor = `playlist-${index}`;
-label.textContent = playlist.name;
-
-playlistList.appendChild(checkbox);
-playlistList.appendChild(label);
-playlistList.appendChild(document.createElement('br'));
-});
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.id = `playlist-${index}`; // Unique ID
+    checkbox.value = playlist.id;
+    checkbox.classList.add("playlist-checkbox"); // Add class for styling
+  
+    const label = document.createElement('label');
+    label.htmlFor = `playlist-${index}`;
+    label.textContent = playlist.name;
+    label.classList.add("playlist-label"); // Add class for styling
+  
+    const breakElement = document.createElement('br');
+    breakElement.classList.add("playlist-break"); // Add class for styling
+  
+    playlistList.appendChild(checkbox);
+    playlistList.appendChild(label);
+    playlistList.appendChild(breakElement);
+  });
+  
 })
 .catch(error => {
 console.error('Error:', error);

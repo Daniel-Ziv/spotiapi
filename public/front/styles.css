@@ -24,36 +24,40 @@ a#login-link, a {
 }
 
 ul#playlist-list {
-    list-style-type: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Adjust this to manage the size of the items */
+    gap: 20px;
     padding: 0;
-    display:flex; /* Use flexbox for layout */
-    flex-direction: column; /* Stack items vertically */
-    align-items: center; /* Center-align items */
+    margin-left:25%;
+    list-style-type: none;
     margin-top: 20px;
 }
-
 ul#playlist-list li {
-    background-color: #181818; /* Slightly lighter than background */
-    border: 1px solid #282828; /* Subtle borders */
-    padding: 15px 20px;
-    margin-bottom: 10px;
-    width: 100%; /* Control width */
-    border-radius: 55px; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.5); /* Soft shadow for depth */
-    transition: transform 0.2s ease; /* Smooth transition for hover effect */
+    background: linear-gradient(145deg, #181818, #282828);
+    border: 1px solid #333;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 ul#playlist-list li:hover {
     transform: scale(1.02); /* Slight scale for interaction */
+    box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+
 }
 
 form#playlist-form {
-    background-color: #181818;
+    background: #181818;
     padding: 20px;
-    border: 1px solid #282828;
+    border: 1px solid #333;
     margin: 20px auto;
     width: 80%;
-    border-radius: 4px;
+    border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.5);
 }
 
@@ -62,6 +66,7 @@ input[type="text"] {
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
+    border-radius: 50px;
     background-color: #121212;
     color: #fff;
 }
@@ -70,23 +75,27 @@ input[type="submit"] {
     width: 100%;
     padding: 10px;
     background-color: #1DB954;
+    border-radius: 20px;
     color: white;
     border: none;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
-input[type="submit"]:hover {
-    background-color: #18ac4d;
-}
+
 
 /* Additional Styles for Centering and Aesthetics */
 .container {
-    max-width: 600px; /* Limit the width for a focused layout */
-    margin: 0 auto; /* Center the container */
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     padding: 20px;
     background-color: #292929;
 }
+
+
 
 /* Improve overall typography for readability */
 p, label {
@@ -109,95 +118,21 @@ input[type="checkbox"] + label:before {
     vertical-align: middle;
 }
 
-input[type="checkbox"]:checked + label:before {
-    background-color: #1DB954; /* Spotify green background */
-    border-color: #1DB954; /* Spotify green border */
-}
-/* Updated Styles */
 
 
-ul#playlist-list li {
-    /* Your existing styles */
-    display: flex; /* Use flexbox to align items */
-    justify-content: center; /* Center items horizontally */
-    align-items: center; /* Center items vertically */
-}
-
-ul#playlist-list li label {
-    flex: 1; /* Allows the label to expand and take up the full width */
-    text-align: center; /* Ensures text is centered */
-    cursor: pointer; /* Indicates the label is clickable */
-}
-
-/* Hiding the checkbox visually but keeping it accessible */
-input[type="checkbox"] {
-    opacity: 0; /* Make the checkbox fully transparent */
-    position: absolute; /* Take it out of the document flow */
-    left: -9999px; /* Move it off-screen */
-}
-
-/* Adjust the custom checkbox appearance to indicate clickable area */
-input[type="checkbox"] + label:before {
-    content: '';
-    display: inline-block;
-    margin-right: 10px;
-    width: 16px;
-    height: 16px;
-    border: 2px solid #fff; /* White border for the custom checkbox */
-    border-radius: 4px;
-    vertical-align: middle;
-    cursor: pointer; /* Indicates the area is clickable */
-}
-
-/* Remove the empty ruleset */
-    /* Your existing styles for the checked state */
-
-/* Adjusting container max-width for better grid display */
-.container {
-    max-width: 1200px; /* Increased to accommodate a grid */
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #292929;
-}
-
-/* Grid layout for playlists */
-ul#playlist-list {
+#playlist-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Adjust minmax for your preferred minimum width */
-    gap: 20px; /* Space between grid items */
-    padding: 0px;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 0;
     list-style-type: none;
-    text-align: center;
-    width: 100%; /* Ensure it fills the container */
+    
+    width: 100%;
     margin-top: 20px;
 }
 
-/* Playlist item styling */
-ul#playlist-list li {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #181818;
-    border: 1px solid #282828;
-    padding: 15px;
-    border-radius: 55px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-    cursor: pointer; /* Make the whole container clickable */
-    transition: transform 0.2s ease, background-color 0.2s ease; /* Smooth transition for interaction */
-}
-
-ul#playlist-list li:hover {
-    transform: scale(1.05); /* Slightly larger on hover */
-    background-color: #282828; /* Darker on hover */
-}
-
 /* Label styling for a full-width clickable area */
-ul#playlist-list li label {
-    flex: 1;
-    text-align: center;
-    cursor: pointer;
-    color: #fff; /* Ensure text color is white for readability */
-}
+
 
 /* Styling checkboxes to be visually hidden but accessible */
 input[type="checkbox"] {
@@ -214,31 +149,20 @@ input[type="checkbox"] + label:before {
     width: 16px;
     height: 16px;
     border: 2px solid #fff;
-    border-radius: 4px;
+    border-radius: 100px;
     vertical-align: middle;
     cursor: pointer;
 }
 
 /* Checked state */
 input[type="checkbox"]:checked + label:before {
-    background-color: #1DB954; /* Green background for checked */
-    border-color: #1DB954; /* Matching border color */
-}
-/* Style for the playlist items */
-.playlist-item {
-    display: flex;
-    align-items: center;
-    background-color: #181818; /* Dark background for playlist items */
-    padding: 10px;
-    margin-bottom: 10px; /* Space between playlist items */
-    cursor: pointer; /* Indicate the item is clickable */
-    border-radius: 10px; /* Rounded corners for aesthetic */
-    transition: background-color 0.3s ease; /* Smooth transition for background color change */
+    background-color: #ffffff; /* Green background for checked */
+    border-color: #ffffff; /* Matching border color */
 }
 
 /* Style when the checkbox inside a playlist item is checked */
 .playlist-item input[type="checkbox"]:checked + label {
-    background-color: #1DB954; /* Spotify green to indicate selection */
+    background-color: #b1b5b3; /* Spotify green to indicate selection */
     color: white; /* Ensure text is readable on the green background */
     width: 100%; /* Ensure the label fills the item for a consistent background */
     display: block; /* Make the label a block element to fill the container */
@@ -253,30 +177,43 @@ input[type="checkbox"]:checked + label:before {
     transition: background-color 0.3s ease; /* Smooth transition for background color */
 }
 
-/* Optional: Visual cue for hover state on the playlist item */
-.playlist-item:hover {
-    background-color: #282828; /* Slightly lighter shade on hover */
-}
 
 /* Custom checkbox styling */
-.playlist-item input[type="checkbox"] {
-    display: none; /* Hide the default checkbox */
+
+
+/* Base styles for the checkbox container */
+.playlist-checkbox {
+    background-color: #ffffff;
+    transition: box-shadow 0.3s ease; /* Smooth transition for shadow */
 }
 
-/* Custom styling for the label to indicate it's clickable */
-.playlist-item label:before {
-    content: ''; /* Custom checkbox indicator */
-    display: inline-block;
-    margin-right: 10px;
-    height: 16px;
-    width: 16px;
-    border: 2px solid #fff; /* Border color */
-    border-radius: 4px; /* Rounded corners for the custom checkbox */
-    vertical-align: middle; /* Align with the text */
-    cursor: pointer; /* Indicate it's clickable */
+/* Styles for the labels */
+.playlist-label {
+    
+    width: 100%;
+    padding: 10px;
+    border-radius: 50px;
+    transition: background-color 0.3s ease;
+    display: block;
 }
 
-/* Change the custom checkbox indicator when the actual checkbox is checked */
-.playlist-item input[type="checkbox"]:checked + label:before {
-    background-color: #1DB954; /* Fill color for the custom checkbox */
+/* Styles for the break elements, if needed */
+.playlist-break {
+    background-color: #383838;
+    transition: background-color 0.3s ease; /* Smooth transition for color change */
+}
+
+/* Hover styles for the checkbox container */
+.playlist-checkbox:hover {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+}
+
+/* Hover styles for labels */
+.playlist-label:hover {
+    background-color: #494949; /* Slightly darker green on hover */
+}
+
+/* Enhance checked state with a smooth hover effect */
+.playlist-item input[type="checkbox"]:checked + label:hover:before {
+    background-color: #89938d; /* A lighter green for checked state hover */
 }
