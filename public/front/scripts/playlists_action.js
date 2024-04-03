@@ -1,31 +1,23 @@
-// This is a placeholder function. You'll need to replace this with your own function to get the access token.
 async function accessToken() {
-    // The client ID of your application
-    const clientId = '2cf16bdb0d6e4f25ad387561e3085f1a';
+    const clientId = 'ADD-YOUR-CLIENT-ID';
 
-    // The redirect URI of your application
     const redirectUri = 'http://localhost:3000/callback/';
 
-    // The scopes that your application needs
     const scopes = ['playlist-modify-public', 'playlist-modify-private'];
 
-    // Construct the authorization URL
     const url = `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${encodeURIComponent(scopes.join(' '))}&response_type=token`;
 
-    // Open the authorization URL in a new window
     const popup = window.open(url, 'Login with Spotify', 'width=800,height=600');
 
     return new Promise((resolve, reject) => {
-        // Check the popup's URL every second
+
         const intervalId = setInterval(() => {
             try {
-                // If the popup was closed without logging in
                 if (popup.closed) {
                     clearInterval(intervalId);
                     reject(new Error('Popup closed by user'));
                 }
 
-                // If the popup redirected to the redirect URI
                 if (popup.location.href.startsWith(redirectUri)) {
                     clearInterval(intervalId);
                     const url = new URL(popup.location.href);
@@ -35,10 +27,8 @@ async function accessToken() {
                     popup.close();
 
                     if (accessToken) {
-                        // Resolve the promise with the access token
                         resolve(accessToken);
 
-                        // You might also want to refresh the access token when it expires
                         setTimeout(() => {
                             // Refresh the access token
                         }, (expiresIn - 60) * 1000);
@@ -47,7 +37,6 @@ async function accessToken() {
                     }
                 }
             } catch (error) {
-                // Ignore DOMException: Blocked a frame with origin "http://localhost:3000" from accessing a cross-origin frame.
             }
         }, 1000);
     });
@@ -111,7 +100,7 @@ document.getElementById('playlist-form').addEventListener('submit', async functi
     const checkboxes = document.querySelectorAll('#playlist-list input[type=checkbox]:checked');
     const selectedPlaylistIds = Array.from(checkboxes).map(checkbox => checkbox.value);
 
-    // Step 1: Create the new playlist
+    // Create the new playlist
     try {
         const playlistResponse = await fetch('/create-playlist', {
             method: 'POST',
@@ -122,12 +111,12 @@ document.getElementById('playlist-form').addEventListener('submit', async functi
 
         if (!newPlaylist || !newPlaylist.id) throw new Error('Failed to create playlist.');
 
-        // Step 2: Add tracks from selected playlists to the new playlist
+        //Add tracks to the new playlist
         await fetch('/add-tracks-from-selected-playlists', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
-                newPlaylistId: newPlaylist.id, // or newPlaylist.body.id based on your API response structure
+                newPlaylistId: newPlaylist.id,
                 selectedPlaylistIds: selectedPlaylistIds
             })
         });
